@@ -1,0 +1,154 @@
+{
+  "title": "Using Speech-to-Text in a Document",
+  "subtitle": "Student Guide",
+  "documentType": "Student Guide",
+  "audience": "Students",
+  "purpose": "Help students use speech-to-text to draft ideas into a document before reviewing and editing their work.",
+  "version": "v1.0",
+  "status": "Draft",
+  "owner": "[Insert team or service area]",
+  "lastReviewed": "[Insert review date]",
+  "sections": [
+    {
+      "number": "1.0",
+      "title": "Introduction to Speech-to-Text",
+      "subsections": [
+        {
+          "number": "1",
+          "title": "What is it?",
+          "paragraphs": [
+            "Speech-to-text lets you speak your ideas out loud and have them typed automatically into a document.",
+            "It can be useful when you want to get ideas down quickly, reduce typing fatigue, or focus on your thoughts before editing your writing."
+          ],
+          "imagePlaceholder": "Document editor with the speech-to-text button highlighted",
+          "imageDescription": "A document editor open on a blank page with the speech-to-text or microphone button highlighted."
+        }
+      ]
+    },
+    {
+      "number": "2.0",
+      "title": "Getting Started",
+      "subsections": [
+        {
+          "number": "1",
+          "title": "What you need",
+          "bullets": [
+            "A device with a document editor installed or available online",
+            "A working microphone",
+            "Internet access if the tool requires it",
+            "A quiet space where possible"
+          ]
+        },
+        {
+          "number": "2",
+          "title": "Before you begin",
+          "paragraphs": [
+            "Check that your microphone is connected and working. Close other apps that may be using your microphone."
+          ],
+          "tip": "Using headphones with a microphone can improve accuracy and reduce background noise."
+        }
+      ]
+    },
+    {
+      "number": "3.0",
+      "title": "Step-by-step Instructions",
+      "subsections": [
+        {
+          "number": "1",
+          "title": "Open your document editor",
+          "steps": [
+            "Open your preferred document editor on your device.",
+            "Open a blank document or the document you want to work on."
+          ],
+          "tip": "Have your topic, task instructions, or notes nearby before you start dictating.",
+          "imagePlaceholder": "Document editor start screen",
+          "imageDescription": "The document editor start screen showing the option to open a blank document."
+        },
+        {
+          "number": "2",
+          "title": "Start speech-to-text",
+          "steps": [
+            "Find the speech-to-text, microphone, or dictate button.",
+            "Select the button to start listening.",
+            "Allow microphone access if prompted."
+          ],
+          "imagePlaceholder": "Speech-to-text button highlighted",
+          "imageDescription": "The document toolbar with the speech-to-text or microphone button highlighted."
+        },
+        {
+          "number": "3",
+          "title": "Speak your ideas",
+          "steps": [
+            "Speak naturally and clearly.",
+            "Pause briefly between sentences.",
+            "Say punctuation such as comma, full stop, question mark, or new paragraph when needed."
+          ],
+          "tip": "Dictation works best as a drafting tool. You can edit the wording afterwards.",
+          "imagePlaceholder": "Dictated text appearing in the document",
+          "imageDescription": "A document showing text appearing on the page after the student speaks."
+        },
+        {
+          "number": "4",
+          "title": "Stop and review",
+          "steps": [
+            "Select the speech-to-text button again to stop listening.",
+            "Read through the text and correct any errors.",
+            "Save your document in the required location."
+          ],
+          "imagePlaceholder": "Saved document screen",
+          "imageDescription": "A document editor showing options to save the file name and location."
+        }
+      ]
+    }
+  ],
+  "helpfulTips": [
+    {
+      "tip": "Speak naturally",
+      "whyItHelps": "Helps the tool recognise your words more accurately."
+    },
+    {
+      "tip": "Use a quiet space",
+      "whyItHelps": "Reduces background noise and transcription errors."
+    },
+    {
+      "tip": "Review your text",
+      "whyItHelps": "Helps you correct words, punctuation and sentence flow."
+    }
+  ],
+  "troubleshooting": [
+    {
+      "issue": "The microphone button is unavailable",
+      "whatToTry": "Check your internet connection, app version, and whether the feature is available in your account."
+    },
+    {
+      "issue": "No text appears",
+      "whatToTry": "Check microphone access and make sure the correct microphone is selected."
+    },
+    {
+      "issue": "Words are incorrect",
+      "whatToTry": "Speak a little slower, reduce background noise, and review the text afterwards."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Do I need to type at all?",
+      "answer": "You can use speech-to-text for drafting, but you should still review and edit your work."
+    },
+    {
+      "question": "Can I use speech-to-text for assignments?",
+      "answer": "Yes. Speech-to-text can help you draft notes, paragraphs or ideas before editing."
+    },
+    {
+      "question": "Does speech-to-text work for long documents?",
+      "answer": "Yes, although working in shorter sections often makes reviewing and editing easier."
+    }
+  ],
+  "whereToGetHelp": [
+    "[Insert confirmed technology support contact]",
+    "[Insert confirmed accessibility or student support contact]",
+    "[Insert student support link]"
+  ],
+  "brandName": "",
+  "brandAccent": "",
+  "brandSubline": ""
+}

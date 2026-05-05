@@ -40,6 +40,9 @@ function normaliseData(data) {
   clone.status = clone.status || "Draft";
   clone.owner = clone.owner || "[Insert owner]";
   clone.lastReviewed = clone.lastReviewed || "[Insert review date]";
+  clone.brandName = clone.brandName || "";
+  clone.brandAccent = clone.brandAccent || "";
+  clone.brandSubline = clone.brandSubline || "";
   clone.sections = ensureArray(clone.sections);
   clone.helpfulTips = ensureArray(clone.helpfulTips);
   clone.troubleshooting = ensureArray(clone.troubleshooting);
@@ -113,8 +116,11 @@ function renderSections(data) {
     const fallback = renderParagraphs(section.paragraphs || section.body || section.text);
     return `<section class="section-card" aria-labelledby="section-${sectionIndex}">
       <div class="section-heading">
-        <h2 id="section-${sectionIndex}">${escapeHtml(number)} ${escapeHtml(title)}</h2>
-        ${section.intro ? `<p class="section-intro">${escapeHtml(section.intro)}</p>` : ""}
+        <span class="section-pill" aria-hidden="true">${escapeHtml(number)}</span>
+        <div class="section-heading-text">
+          <h2 id="section-${sectionIndex}">${escapeHtml(title)}</h2>
+          ${section.intro ? `<p class="section-intro">${escapeHtml(section.intro)}</p>` : ""}
+        </div>
       </div>
       ${fallback}
       ${contents}
@@ -155,19 +161,30 @@ function renderGuide(rawData) {
   state.data = data;
   const contents = buildContents(data);
   const guide = $("guidePreview");
+  const titleParts = String(data.title || "").split(":");
+  const titleTop = titleParts[0] || data.title;
+  const brandMarkup = data.brandName
+    ? `<div class="brand-lockup" aria-label="${escapeHtml(data.brandName)}"><span>${escapeHtml(data.brandName.slice(0, -1))}</span><span class="brand-accent">${escapeHtml(data.brandAccent || data.brandName.slice(-1))}</span>${data.brandSubline ? `<small>${escapeHtml(data.brandSubline)}</small>` : ""}</div>`
+    : "";
   guide.innerHTML = `
     <header class="title-page">
-      <div>
+      <div class="title-topbar">
+        <div>
+          <span class="title-kicker">${escapeHtml(data.title)}</span>
+          <span class="title-subline">${escapeHtml(data.subtitle || data.documentType || "Student Guide")}</span>
+        </div>
+        ${brandMarkup}
+      </div>
+      <div class="title-body">
         <span class="document-label">${escapeHtml(data.documentType || "Student Guide")}</span>
         <h1>${escapeHtml(data.title)}</h1>
-        <p class="subtitle">${escapeHtml(data.subtitle)}</p>
         <p class="purpose">${escapeHtml(data.purpose)}</p>
-      </div>
-      <div class="meta-grid" aria-label="Document details">
-        <div class="meta-item"><span>Audience</span><strong>${escapeHtml(data.audience)}</strong></div>
-        <div class="meta-item"><span>Status</span><strong>${escapeHtml(data.status)}</strong></div>
-        <div class="meta-item"><span>Version</span><strong>${escapeHtml(data.version)}</strong></div>
-        <div class="meta-item"><span>Owner</span><strong>${escapeHtml(data.owner)}</strong></div>
+        <div class="meta-grid" aria-label="Document details">
+          <div class="meta-item"><span>Audience</span><strong>${escapeHtml(data.audience)}</strong></div>
+          <div class="meta-item"><span>Status</span><strong>${escapeHtml(data.status)}</strong></div>
+          <div class="meta-item"><span>Version</span><strong>${escapeHtml(data.version)}</strong></div>
+          <div class="meta-item"><span>Owner</span><strong>${escapeHtml(data.owner)}</strong></div>
+        </div>
       </div>
     </header>
     <div class="guide-content">
@@ -289,7 +306,7 @@ function wP(text, style = "Normal") {
 }
 function wBullet(text) { return wP(`• ${text}`, "Normal"); }
 function wTable(rows) {
-  return `<w:tbl><w:tblPr><w:tblStyle w:val="TableGrid"/><w:tblW w:w="0" w:type="auto"/><w:tblBorders><w:top w:val="single" w:sz="6" w:space="0" w:color="8FA0B5"/><w:left w:val="single" w:sz="6" w:space="0" w:color="8FA0B5"/><w:bottom w:val="single" w:sz="6" w:space="0" w:color="8FA0B5"/><w:right w:val="single" w:sz="6" w:space="0" w:color="8FA0B5"/><w:insideH w:val="single" w:sz="6" w:space="0" w:color="CFD7E3"/><w:insideV w:val="single" w:sz="6" w:space="0" w:color="CFD7E3"/></w:tblBorders></w:tblPr>${rows.map((row, rowIndex) => `<w:tr>${row.map(cell => `<w:tc><w:tcPr><w:tcW w:w="2400" w:type="dxa"/>${rowIndex === 0 ? `<w:shd w:fill="123C69"/>` : ""}</w:tcPr>${wP(cell, rowIndex === 0 ? "TableHead" : "Normal")}</w:tc>`).join("")}</w:tr>`).join("")}</w:tbl>`;
+  return `<w:tbl><w:tblPr><w:tblStyle w:val="TableGrid"/><w:tblW w:w="0" w:type="auto"/><w:tblBorders><w:top w:val="single" w:sz="6" w:space="0" w:color="18B394"/><w:left w:val="single" w:sz="6" w:space="0" w:color="18B394"/><w:bottom w:val="single" w:sz="6" w:space="0" w:color="18B394"/><w:right w:val="single" w:sz="6" w:space="0" w:color="18B394"/><w:insideH w:val="single" w:sz="6" w:space="0" w:color="D6D9DA"/><w:insideV w:val="single" w:sz="6" w:space="0" w:color="D6D9DA"/></w:tblBorders></w:tblPr>${rows.map((row, rowIndex) => `<w:tr>${row.map(cell => `<w:tc><w:tcPr><w:tcW w:w="2400" w:type="dxa"/>${rowIndex === 0 ? `<w:shd w:fill="E8F8F4"/>` : ""}</w:tcPr>${wP(cell, rowIndex === 0 ? "TableHead" : "Normal")}</w:tc>`).join("")}</w:tr>`).join("")}</w:tbl>`;
 }
 function wBox(label, text) { return wTable([[label, text]]); }
 
@@ -331,12 +348,12 @@ function docxDocumentXml(data) {
 
 function docxStylesXml() {
   return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-  <w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:rPr><w:rFonts w:ascii="Aptos" w:hAnsi="Aptos"/><w:sz w:val="22"/><w:color w:val="172033"/></w:rPr><w:pPr><w:spacing w:after="160" w:line="276" w:lineRule="auto"/></w:pPr></w:style>
-  <w:style w:type="paragraph" w:styleId="Title"><w:name w:val="Title"/><w:rPr><w:b/><w:sz w:val="48"/><w:color w:val="123C69"/></w:rPr><w:pPr><w:spacing w:after="240"/></w:pPr></w:style>
-  <w:style w:type="paragraph" w:styleId="Subtitle"><w:name w:val="Subtitle"/><w:rPr><w:b/><w:sz w:val="30"/><w:color w:val="172033"/></w:rPr></w:style>
-  <w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:qFormat/><w:rPr><w:b/><w:sz w:val="32"/><w:color w:val="123C69"/></w:rPr><w:pPr><w:spacing w:before="320" w:after="160"/><w:keepNext/></w:pPr></w:style>
-  <w:style w:type="paragraph" w:styleId="Heading2"><w:name w:val="heading 2"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:qFormat/><w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="172033"/></w:rPr><w:pPr><w:spacing w:before="220" w:after="120"/><w:keepNext/></w:pPr></w:style>
-  <w:style w:type="paragraph" w:styleId="TableHead"><w:name w:val="Table Head"/><w:rPr><w:b/><w:color w:val="FFFFFF"/></w:rPr></w:style>
+  <w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:rPr><w:rFonts w:ascii="Aptos" w:hAnsi="Aptos"/><w:sz w:val="22"/><w:color w:val="171717"/></w:rPr><w:pPr><w:spacing w:after="150" w:line="276" w:lineRule="auto"/></w:pPr></w:style>
+  <w:style w:type="paragraph" w:styleId="Title"><w:name w:val="Title"/><w:rPr><w:rFonts w:ascii="Aptos Display" w:hAnsi="Aptos Display"/><w:b/><w:sz w:val="50"/><w:color w:val="5D6063"/></w:rPr><w:pPr><w:spacing w:after="220"/></w:pPr></w:style>
+  <w:style w:type="paragraph" w:styleId="Subtitle"><w:name w:val="Subtitle"/><w:rPr><w:rFonts w:ascii="Aptos" w:hAnsi="Aptos"/><w:b/><w:sz w:val="30"/><w:color w:val="5D6063"/></w:rPr></w:style>
+  <w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:qFormat/><w:rPr><w:rFonts w:ascii="Aptos Display" w:hAnsi="Aptos Display"/><w:b/><w:sz w:val="32"/><w:color w:val="171717"/></w:rPr><w:pPr><w:spacing w:before="300" w:after="150"/><w:keepNext/><w:pBdr><w:bottom w:val="single" w:sz="8" w:space="4" w:color="18B394"/></w:pBdr></w:pPr></w:style>
+  <w:style w:type="paragraph" w:styleId="Heading2"><w:name w:val="heading 2"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:qFormat/><w:rPr><w:rFonts w:ascii="Aptos Display" w:hAnsi="Aptos Display"/><w:b/><w:sz w:val="26"/><w:color w:val="171717"/></w:rPr><w:pPr><w:spacing w:before="220" w:after="120"/><w:keepNext/><w:pBdr><w:top w:val="single" w:sz="12" w:space="3" w:color="18B394"/><w:left w:val="single" w:sz="12" w:space="3" w:color="18B394"/><w:bottom w:val="single" w:sz="12" w:space="3" w:color="18B394"/><w:right w:val="single" w:sz="12" w:space="3" w:color="18B394"/></w:pBdr></w:pPr></w:style>
+  <w:style w:type="paragraph" w:styleId="TableHead"><w:name w:val="Table Head"/><w:rPr><w:b/><w:color w:val="171717"/></w:rPr></w:style>
   </w:styles>`;
 }
 
