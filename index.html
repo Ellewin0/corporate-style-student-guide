@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A browser-based formatter for creating corporate-style student guides from structured JSON.">
+  <title>Corporate Student Guide Formatter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#guidePreview">Skip to guide preview</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">Guide Formatter</p>
+        <h1>Corporate Student Guide Formatter</h1>
+        <p class="lead">Paste structured JSON, generate a styled student guide, then export as HTML, PDF or editable Word.</p>
+      </div>
+      <div class="header-badge" aria-label="Output formats">
+        <span>HTML</span>
+        <span>PDF</span>
+        <span>DOCX</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-shell" role="main">
+    <section class="editor-panel" aria-labelledby="editor-heading">
+      <div class="panel-heading">
+        <div>
+          <p class="section-label">Input</p>
+          <h2 id="editor-heading">Guide JSON</h2>
+        </div>
+        <button id="loadSampleBtn" type="button" class="secondary-btn">Load sample</button>
+      </div>
+
+      <p class="help-text">Paste JSON from your Copilot agent. Nothing is uploaded or saved by this page; processing happens in your browser.</p>
+
+      <label class="sr-only" for="jsonInput">Guide JSON input</label>
+      <textarea id="jsonInput" spellcheck="false" aria-describedby="statusBox"></textarea>
+
+      <div class="button-grid" aria-label="Guide actions">
+        <button id="generateBtn" type="button" class="primary-btn">Generate guide</button>
+        <button id="downloadJsonBtn" type="button">Download JSON</button>
+        <button id="downloadHtmlBtn" type="button">Download HTML</button>
+        <button id="printBtn" type="button">Print / Save PDF</button>
+        <button id="downloadDocxBtn" type="button">Download DOCX</button>
+        <button id="downloadWordHtmlBtn" type="button">Word-friendly HTML</button>
+      </div>
+
+      <div id="statusBox" class="status-box" role="status" aria-live="polite">Load the sample or paste JSON to begin.</div>
+
+      <details class="schema-help">
+        <summary>JSON structure expected by this formatter</summary>
+        <p>The formatter accepts a flexible structure. The recommended fields are:</p>
+        <pre><code>{
+  "title": "Guide title",
+  "subtitle": "Student Guide",
+  "audience": "Students",
+  "purpose": "What this guide helps students do",
+  "version": "v1.0",
+  "status": "Draft / Published",
+  "sections": [
+    {
+      "number": "1.0",
+      "title": "Introduction",
+      "subsections": [
+        {
+          "title": "What is it?",
+          "paragraphs": ["Plain English explanation."],
+          "steps": ["Step one", "Step two"],
+          "tip": "Helpful tip",
+          "imagePlaceholder": "Screenshot title",
+          "imageDescription": "Specific accessible description."
+        }
+      ]
+    }
+  ],
+  "helpfulTips": [{ "tip": "", "whyItHelps": "" }],
+  "troubleshooting": [{ "issue": "", "whatToTry": "" }],
+  "faqs": [{ "question": "", "answer": "" }],
+  "whereToGetHelp": ["[Insert confirmed support contact]"]
+}</code></pre>
+      </details>
+    </section>
+
+    <section class="preview-panel" aria-labelledby="preview-heading">
+      <div class="preview-toolbar">
+        <div>
+          <p class="section-label">Preview</p>
+          <h2 id="preview-heading">Formatted guide</h2>
+        </div>
+        <p class="export-note">PDF is created through your browser’s print dialog.</p>
+      </div>
+
+      <article id="guidePreview" class="guide corporate-guide" tabindex="-1" aria-label="Generated guide preview">
+        <div class="empty-state">
+          <h2>Your formatted guide will appear here</h2>
+          <p>Load the sample or paste guide JSON, then select <strong>Generate guide</strong>.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>This formatter is intended for public-safe guide content. Do not paste sensitive student information into a public or shared device.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
